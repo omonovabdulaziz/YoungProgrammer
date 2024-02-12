@@ -9,6 +9,7 @@ C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\payl
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\repository\AttemptRateRepository.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\exception\ExceptionsHandler.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\controller\NewsController.java
+C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\config\RateLimitFilter.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\payload\RegularDTO.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\service\impl\ContestServiceImpl.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\entity\Contest.java
