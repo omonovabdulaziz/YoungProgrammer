@@ -28,6 +28,7 @@ public class RateLimitFilter implements Filter {
         Bandwidth limit = Bandwidth.classic(CAPACITY, Refill.intervally(CAPACITY, TIME_PERIOD));
         bucket = Bucket4j.builder().addLimit(limit).build();
         excludedEndpoints = new HashSet<>(Arrays.asList(
+                "/api/v1/auth/**",
                 "/v2/api-docs",
                 "/v3/api-docs",
                 "/v3/api-docs/**",

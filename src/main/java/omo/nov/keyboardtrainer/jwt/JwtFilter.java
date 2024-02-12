@@ -61,7 +61,7 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     private void unAuthorize(HttpServletResponse response, String message) throws IOException {
-        response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType(APPLICATION_JSON_VALUE);
         new ObjectMapper().writeValue(response.getOutputStream(), ApiResponse.builder().message(message).status(401).build());
     }
