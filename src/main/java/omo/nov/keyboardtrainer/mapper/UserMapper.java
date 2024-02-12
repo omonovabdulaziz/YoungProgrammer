@@ -20,7 +20,7 @@ public class UserMapper {
                 .surname(registerDTO.getSurname())
                 .systemRoleName(SystemRoleName.ROLE_USER)
                 .passwords(passwordEncoder.encode(registerDTO.getPassword()))
-                .status(true)
+                .status(false)
                 .region(registerDTO.getRegion())
                 .age(registerDTO.getAge())
                 .build();

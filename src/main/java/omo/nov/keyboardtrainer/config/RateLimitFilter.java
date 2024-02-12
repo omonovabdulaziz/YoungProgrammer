@@ -16,9 +16,9 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class RateLimitFilter implements Filter {
 
-    private static final long CAPACITY = 50;
-    private static final Duration TIME_PERIOD = Duration.ofSeconds(8);
-    private static final Duration WAITING_PERIOD = Duration.ofSeconds(100);
+    private static final long CAPACITY = 15;
+    private static final Duration TIME_PERIOD = Duration.ofSeconds(1);
+    private static final Duration WAITING_PERIOD = Duration.ofSeconds(150);
 
     private Bucket bucket;
     private Set<String> excludedEndpoints;
