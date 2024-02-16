@@ -46,8 +46,6 @@ public class AttemptContestServiceImpl implements AttemptContestService {
                     AttemptRate attemptRate = optionalAttemptRate.get();
                     int i = attemptRate.getTrueLetterCount() - attemptRate.getFalseLetterCount();
                     int i1 = attemptContestDTO.getTrueLetterCount() - attemptContestDTO.getFalseLetterCount();
-                    System.out.println("eskisi " + i);
-                    System.out.println("yangisi" + i1);
                     if (i1 > i) {
                         attemptRate.setTrueLetterCount(attemptContestDTO.getTrueLetterCount());
                         attemptRate.setFalseLetterCount(attemptContestDTO.getFalseLetterCount());

@@ -15,6 +15,4 @@ import java.util.UUID;
 public interface AttemptContestRepository extends JpaRepository<AttemptContest, UUID> {
     @Query(value = "SELECT new omo.nov.keyboardtrainer.payload.AttemptContestPage(ac.id, ac.trueLetterCount, ac.falseLetterCount , ac.startAt , ac.endAt)  FROM AttemptContest ac WHERE ac.user.id =:userId AND ac.contest.id =:contestId")
     Page<AttemptContestPage> getAllAttemptByUserAndContest(@Param(value = "userId") Long userId, @Param(value = "contestId") Long contestId, PageRequest pageRequest);
-
-
 }

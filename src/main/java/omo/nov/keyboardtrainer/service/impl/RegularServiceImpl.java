@@ -36,8 +36,6 @@ public class RegularServiceImpl implements RegularService {
             RegularRate regularRate = optionalRegularRate.get();
             int i = regularRate.getTrueLetterCount() - regularRate.getFalseLetterCount();
             int i1 = regularDTO.getTrueLetterCount() - regularDTO.getFalseLetterCount();
-            System.out.println("eskisi " + i);
-            System.out.println("yangisi" + i1);
             if (i1 > i) {
                 regularRate.setTrueLetterCount(regularDTO.getTrueLetterCount());
                 regularRate.setFalseLetterCount(regularDTO.getFalseLetterCount());
@@ -47,7 +45,7 @@ public class RegularServiceImpl implements RegularService {
                 regularRateRepository.save(regularRate);
             }
         }
-        regularRepository.save(Regular.builder().startAt(regularDTO.getStartAt()).commonTrue(regularDTO.getTrueLetterCount() - regularDTO.getFalseLetterCount()).endAt(regularDTO.getEndAt()).user(systemUser).falseLetterCount(regularDTO.getFalseLetterCount()).trueLetterCount(regularDTO.getFalseLetterCount()).limitSecondRegular(regularDTO.getLimitSecondRegular()).build());
+        regularRepository.save(Regular.builder().startAt(regularDTO.getStartAt()).commonTrue(regularDTO.getTrueLetterCount() - regularDTO.getFalseLetterCount()).endAt(regularDTO.getEndAt()).user(systemUser).falseLetterCount(regularDTO.getFalseLetterCount()).trueLetterCount(regularDTO.getTrueLetterCount()).limitSecondRegular(regularDTO.getLimitSecondRegular()).build());
         return ResponseEntity.ok(ApiResponse.builder().message("Ok").status(200).build());
     }
 

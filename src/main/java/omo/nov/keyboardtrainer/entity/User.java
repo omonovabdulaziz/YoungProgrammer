@@ -35,6 +35,7 @@ public class User extends AbsLongEntity implements UserDetails {
     private String passwords;
     private String deviceIp;
     private Boolean status;
+    @Enumerated(EnumType.STRING)
     private Region region;
     private Integer age;
 
