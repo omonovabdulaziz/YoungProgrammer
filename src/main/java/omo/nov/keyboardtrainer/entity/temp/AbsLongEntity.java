@@ -10,6 +10,9 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @MappedSuperclass
 @Data
@@ -19,7 +22,11 @@ public abstract class AbsLongEntity {
     private Long id;
     @CreationTimestamp
     @Column(updatable = false)
-    private Timestamp createdAt;
+    @JsonDeserialize(using = TimestampDeserializer.class)
+
+    private LocalDateTime createdAt;
     @UpdateTimestamp
-    private Timestamp updatedAt;
+    @JsonDeserialize(using = TimestampDeserializer.class)
+
+    private LocalDateTime updatedAt;
 }

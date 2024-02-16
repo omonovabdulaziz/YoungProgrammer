@@ -27,8 +27,8 @@ public abstract class AbsUUIDEntity {
     @CreationTimestamp
     @Column(updatable = false)
     @JsonDeserialize(using = TimestampDeserializer.class)
-    private Timestamp createdAt;
+    private LocalDateTime createdAt;
     @UpdateTimestamp
     @JsonDeserialize(using = TimestampDeserializer.class)
-    private Timestamp updatedAt;
+    private LocalDateTime updatedAt;
 }
