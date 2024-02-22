@@ -65,8 +65,8 @@ public class RegularServiceImpl implements RegularService {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
         Long myPlace = 1L;
         if (systemUser.getStatus()) {
-            for (Regular regular : regularRepository.findAllByLimitSecondRegularOrderByCommonTrueDesc(limitSecond)) {
-                if (regular.getUser().equals(systemUser))
+            for (RegularRate regularRate: regularRateRepository.findAllByLimitSecondRegulateOrderByCommonTrueDesc(limitSecond)) {
+                if (regularRate.getUser().equals(systemUser))
                     break;
                 myPlace++;
             }

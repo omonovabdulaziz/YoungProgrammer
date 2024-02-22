@@ -16,6 +16,7 @@ import java.util.UUID;
 @Builder
 public class RegularDTO {
     private UUID id;
+    private String name;
     private Integer limitSecondRegular;
     private Integer trueLetterCount;
     private Integer falseLetterCount;
