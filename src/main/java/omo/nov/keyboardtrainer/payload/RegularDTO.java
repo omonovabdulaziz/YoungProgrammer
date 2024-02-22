@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import omo.nov.keyboardtrainer.entity.User;
 import omo.nov.keyboardtrainer.util.TimestampDeserializer;
 
 import java.sql.Timestamp;
@@ -16,7 +17,7 @@ import java.util.UUID;
 @Builder
 public class RegularDTO {
     private UUID id;
-    private String name;
+    private User user;
     private Integer limitSecondRegular;
     private Integer trueLetterCount;
     private Integer falseLetterCount;
