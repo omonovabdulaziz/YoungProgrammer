@@ -37,7 +37,7 @@ import org.springframework.stereotype.Component;
                 ),
                 @Server(
                         description = "PROD ENV",
-                        url = "http://95.46.96.135:8080"
+                        url = "https://api.yoshdasturchi.uz"
                 )
         },
         security = {
