@@ -57,7 +57,9 @@ public class SecurityConfiguration {
                                 "/configuration/security",
                                 "/swagger-ui/**",
                                 "/webjars/**",
-                                "/swagger-ui.html"
+                                "/swagger-ui.html",
+                                "/api/v1/attemptContest/rate/**",
+                                "/api/v1/regular/getRate/**"
                         ).permitAll()
                         .anyRequest()
                         .authenticated());

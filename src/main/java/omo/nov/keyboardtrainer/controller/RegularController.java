@@ -34,7 +34,7 @@ public class RegularController {
     }
 
     @GetMapping("/getRate")
-    public RegularCommon getRate(@RequestParam Integer limitSecond , @RequestParam(defaultValue = "1") int page , @RequestParam(defaultValue = "10") int size) {
+    public RegularCommon getRate(@RequestParam Integer limitSecond , @RequestParam int page , @RequestParam int size) {
         return regularService.getRate(limitSecond , page ,size);
     }
 

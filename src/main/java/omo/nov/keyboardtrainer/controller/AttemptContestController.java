@@ -36,4 +36,7 @@ public class AttemptContestController {
     public AttemptRateCommon getRate(@PathVariable Long contestId, @RequestParam int page, @RequestParam int size) {
         return attemptContestService.getRate(contestId, page, size);
     }
+
+    
+
 }
