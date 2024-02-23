@@ -58,8 +58,8 @@ public class SecurityConfiguration {
                                 "/swagger-ui/**",
                                 "/webjars/**",
                                 "/swagger-ui.html",
-                                "/api/v1/attemptContest/rate/**",
-                                "/api/v1/regular/getRate/**"
+                                "/api/v1/attemptContest/rate/notUser/**",
+                                "/api/v1/regular/getRateNotUser"
                         ).permitAll()
                         .anyRequest()
                         .authenticated());

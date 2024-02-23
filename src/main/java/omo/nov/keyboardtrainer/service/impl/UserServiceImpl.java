@@ -5,6 +5,7 @@ import omo.nov.keyboardtrainer.config.SecurityConfiguration;
 import omo.nov.keyboardtrainer.entity.User;
 import omo.nov.keyboardtrainer.entity.enums.Status;
 import omo.nov.keyboardtrainer.exception.NotFoundException;
+import omo.nov.keyboardtrainer.jwt.JwtProvider;
 import omo.nov.keyboardtrainer.payload.ApiResponse;
 import omo.nov.keyboardtrainer.payload.UpdateDTO;
 import omo.nov.keyboardtrainer.repository.UserRepository;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final JwtProvider jwtProvider;
 
     @Override
 
@@ -48,8 +50,8 @@ public class UserServiceImpl implements UserService {
         if (updateDTO.getPasswords() != null) {
             systemUser.setPasswords(passwordEncoder.encode(updateDTO.getPasswords()));
         }
-        userRepository.save(systemUser);
-        return ResponseEntity.ok(ApiResponse.builder().message("Updated").status(200).build());
+        User user = userRepository.save(systemUser);
+        return ResponseEntity.ok(ApiResponse.builder().message("Updated").object(jwtProvider.generateToken(user)).status(200).build());
     }
 
     @Override

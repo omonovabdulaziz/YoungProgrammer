@@ -17,4 +17,7 @@ public interface RegularService {
     Regular getById(UUID id);
 
     RegularCommon   getRate(Integer limitSecond , int page , int size);
+
+    RegularCommon getRateNotUser(Integer limitSecond, int page, int size);
+
 }

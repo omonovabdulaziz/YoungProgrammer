@@ -17,4 +17,5 @@ public interface AttemptContestService {
 
     AttemptRateCommon getRate(Long contestId , int page , int size);
 
+    AttemptRateCommon getRateNotUser(Long contestId, int page, int size);
 }

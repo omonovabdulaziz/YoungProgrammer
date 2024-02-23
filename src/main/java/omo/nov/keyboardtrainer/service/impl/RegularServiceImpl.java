@@ -63,22 +63,24 @@ public class RegularServiceImpl implements RegularService {
     @Override
     public RegularCommon getRate(Integer limitSecond, int page, int size) {
         Page<RegularDTO> regularDTOPage = regularRateRepository.getRegularDTOPage(PageRequest.of(page, size));
-        try {
-            User systemUser = SecurityConfiguration.getOwnSecurityInformation();
-            Long myPlace = 1L;
-            if (systemUser.getStatus()) {
-                for (RegularRate regularRate : regularRateRepository.findAllByLimitSecondRegulateAndUser_StatusOrderByCommonTrueDesc(limitSecond, true)) {
-                    if (regularRate.getUser().equals(systemUser))
-                        break;
-                    myPlace++;
-                }
-            } else {
-                myPlace = null;
+        User systemUser = SecurityConfiguration.getOwnSecurityInformation();
+        Long myPlace = 1L;
+        if (systemUser.getStatus()) {
+            for (RegularRate regularRate : regularRateRepository.findAllByLimitSecondRegulateAndUser_StatusOrderByCommonTrueDesc(limitSecond, true)) {
+                if (regularRate.getUser().equals(systemUser))
+                    break;
+                myPlace++;
             }
-            return RegularCommon.builder().myPlace(myPlace).regularDTOPage(regularDTOPage).build();
-        } catch (Exception e) {
-            return RegularCommon.builder().myPlace(null).regularDTOPage(regularDTOPage).build();
+        } else {
+            myPlace = null;
         }
+        return RegularCommon.builder().myPlace(myPlace).regularDTOPage(regularDTOPage).build();
+    }
+
+    @Override
+    public RegularCommon getRateNotUser(Integer limitSecond, int page, int size) {
+        Page<RegularDTO> regularDTOPage = regularRateRepository.getRegularDTOPage(PageRequest.of(page, size));
+        return RegularCommon.builder().myPlace(null).regularDTOPage(regularDTOPage).build();
     }
 
 }

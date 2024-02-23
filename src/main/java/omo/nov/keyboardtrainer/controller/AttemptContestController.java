@@ -16,7 +16,6 @@ import java.util.UUID;
 public class AttemptContestController {
     private final AttemptContestService attemptContestService;
 
-
     @PostMapping("/add")
     public ResponseEntity<ApiResponse> add(@RequestBody AttemptContestDTO attemptContestDTO) {
         return attemptContestService.add(attemptContestDTO);
@@ -37,6 +36,8 @@ public class AttemptContestController {
         return attemptContestService.getRate(contestId, page, size);
     }
 
-    
-
+    @GetMapping("/rate/notUser/{contestId}")
+    public AttemptRateCommon getRateNotUser(@PathVariable Long contestId, @RequestParam int page, @RequestParam int size) {
+        return attemptContestService.getRateNotUser(contestId, page, size);
+    }
 }

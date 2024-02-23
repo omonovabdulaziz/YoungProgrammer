@@ -77,21 +77,25 @@ public class AttemptContestServiceImpl implements AttemptContestService {
     @Override
     public AttemptRateCommon getRate(Long contestId, int page, int size) {
         Page<AttemptRateDTO> pageAttempt = attemptRateRepository.findAllByContestIdOrderByCommonTrue(contestId, PageRequest.of(page, size));
-        try {
-            User systemUser = SecurityConfiguration.getOwnSecurityInformation();
-            Long myPlace = 1L;
-            if (systemUser.getStatus()) {
-                for (AttemptRate attemptRate : attemptRateRepository.findAllByContestIdAndUser_StatusOrderByCommonTrueDesc(contestId, true)) {
-                    if (attemptRate.getUser().equals(systemUser))
-                        break;
-                    myPlace++;
-                }
-            } else {
-                myPlace = null;
+        User systemUser = SecurityConfiguration.getOwnSecurityInformation();
+        Long myPlace = 1L;
+        if (systemUser.getStatus()) {
+            for (AttemptRate attemptRate : attemptRateRepository.findAllByContestIdAndUser_StatusOrderByCommonTrueDesc(contestId, true)) {
+                if (attemptRate.getUser().equals(systemUser))
+                    break;
+                myPlace++;
             }
-            return AttemptRateCommon.builder().attemptRateDTOS(pageAttempt).myPlace(myPlace).build();
-        } catch (Exception e) {
-            return AttemptRateCommon.builder().attemptRateDTOS(pageAttempt).myPlace(null).build();
+        } else {
+            myPlace = null;
         }
+        return AttemptRateCommon.builder().attemptRateDTOS(pageAttempt).myPlace(myPlace).build();
     }
+
+    @Override
+    public AttemptRateCommon getRateNotUser(Long contestId, int page, int size) {
+        Page<AttemptRateDTO> pageAttempt = attemptRateRepository.findAllByContestIdOrderByCommonTrue(contestId, PageRequest.of(page, size));
+        return AttemptRateCommon.builder().attemptRateDTOS(pageAttempt).myPlace(null).build();
+    }
+
+
 }
