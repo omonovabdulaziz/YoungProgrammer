@@ -15,10 +15,11 @@ public interface RegularRateRepository extends JpaRepository<RegularRate, UUID> 
     Optional<RegularRate> findByUserIdAndLimitSecondRegulate(Long user_id, Integer limitSecondRegulate);
 
 
-    @Query(value = "SELECT new omo.nov.keyboardtrainer.payload.RegularDTO(rg.id , rg.user ,rg.limitSecondRegulate , rg.trueLetterCount , rg.falseLetterCount , rg.startAt , rg.endAt) FROM RegularRate rg order by rg.commonTrue desc")
+    @Query(value = "SELECT new omo.nov.keyboardtrainer.payload.RegularDTO(rg.id , rg.user ,rg.limitSecondRegulate , rg.trueLetterCount , rg.falseLetterCount , rg.startAt , rg.endAt) FROM RegularRate rg WHERE  rg.user.status=true order by rg.commonTrue desc")
     Page<RegularDTO> getRegularDTOPage(PageRequest pageRequest);
 
 
-    List<RegularRate> findAllByLimitSecondRegulateOrderByCommonTrueDesc(Integer limitSecondRegulate);
+    List<RegularRate> findAllByLimitSecondRegulateAndUser_StatusOrderByCommonTrueDesc(Integer limitSecondRegulate, Boolean user_status);
+
 
 }

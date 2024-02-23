@@ -52,7 +52,7 @@ public class RegularServiceImpl implements RegularService {
     @Override
     public Page<RegularDTO> getRegularPage(int page, int size) {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
-        return systemUser.getStatus() ? regularRepository.selectByUser(systemUser.getId(), PageRequest.of(page, size)) : null;
+        return regularRepository.selectByUser(systemUser.getId(), PageRequest.of(page, size));
     }
 
     @Override
@@ -65,7 +65,7 @@ public class RegularServiceImpl implements RegularService {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
         Long myPlace = 1L;
         if (systemUser.getStatus()) {
-            for (RegularRate regularRate: regularRateRepository.findAllByLimitSecondRegulateOrderByCommonTrueDesc(limitSecond)) {
+            for (RegularRate regularRate : regularRateRepository.findAllByLimitSecondRegulateAndUser_StatusOrderByCommonTrueDesc(limitSecond, true)) {
                 if (regularRate.getUser().equals(systemUser))
                     break;
                 myPlace++;

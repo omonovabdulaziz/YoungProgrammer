@@ -78,12 +78,15 @@ public class AttemptContestServiceImpl implements AttemptContestService {
     public AttemptRateCommon getRate(Long contestId, int page, int size) {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
         Page<AttemptRateDTO> pageAttempt = attemptRateRepository.findAllByContestIdOrderByCommonTrue(contestId, PageRequest.of(page, size));
-        long myPlace = 1L;
-        for (AttemptRate attemptRate : attemptRateRepository.findAllByContestIdOrderByCommonTrueDesc(contestId)) {
-            if (attemptRate.getUser().equals(systemUser)) {
-                break;
+        Long myPlace = 1L;
+        if (systemUser.getStatus()) {
+            for (AttemptRate attemptRate : attemptRateRepository.findAllByContestIdAndUser_StatusOrderByCommonTrueDesc(contestId, true)) {
+                if (attemptRate.getUser().equals(systemUser))
+                    break;
+                myPlace++;
             }
-            myPlace++;
+        } else {
+            myPlace = null;
         }
         return AttemptRateCommon.builder().attemptRateDTOS(pageAttempt).myPlace(myPlace).build();
     }

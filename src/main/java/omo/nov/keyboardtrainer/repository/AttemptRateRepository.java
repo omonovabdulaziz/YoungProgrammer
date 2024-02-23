@@ -16,9 +16,9 @@ public interface AttemptRateRepository extends JpaRepository<AttemptRate, UUID> 
 
     Optional<AttemptRate> findByUserIdAndContestId(Long id, Long contestId);
 
-    @Query(value = "SELECT new omo.nov.keyboardtrainer.payload.AttemptRateDTO(ar.user , ar.trueLetterCount , ar.falseLetterCount , ar.commonTrue , ar.startAt , ar.endAt) FROM AttemptRate ar where ar.contest.id=:contest_id order by ar.commonTrue desc")
+    @Query(value = "SELECT new omo.nov.keyboardtrainer.payload.AttemptRateDTO(ar.user , ar.trueLetterCount , ar.falseLetterCount , ar.commonTrue , ar.startAt , ar.endAt) FROM AttemptRate ar where ar.contest.id=:contest_id and ar.user.status=true order by ar.commonTrue desc")
     Page<AttemptRateDTO> findAllByContestIdOrderByCommonTrue(@Param(value = "contest_id") Long contest_id, Pageable pageable);
 
-    List<AttemptRate> findAllByContestIdOrderByCommonTrueDesc(Long contest_id);
+    List<AttemptRate> findAllByContestIdAndUser_StatusOrderByCommonTrueDesc(Long contest_id, Boolean user_status);
 
 }
