@@ -45,7 +45,7 @@ public class RegularServiceImpl implements RegularService {
                 regularRateRepository.save(regularRate);
             }
         }
-        regularRepository.save(Regular.builder().startAt(regularDTO.getStartAt()).commonTrue(regularDTO.getTrueLetterCount() - regularDTO.getFalseLetterCount()).endAt(regularDTO.getEndAt()).falseLetterCount(regularDTO.getFalseLetterCount()).trueLetterCount(regularDTO.getTrueLetterCount()).limitSecondRegular(regularDTO.getLimitSecondRegular()).user(systemUser).build());
+        regularRepository.save(Regular.builder().startAt(regularDTO.getStartAt()).endAt(regularDTO.getEndAt()).commonTrue(regularDTO.getTrueLetterCount() - regularDTO.getFalseLetterCount()).falseLetterCount(regularDTO.getFalseLetterCount()).trueLetterCount(regularDTO.getTrueLetterCount()).limitSecondRegular(regularDTO.getLimitSecondRegular()).user(systemUser).build());
         return ResponseEntity.ok(ApiResponse.builder().message("Ok").status(200).build());
     }
 
