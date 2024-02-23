@@ -12,14 +12,17 @@ import omo.nov.keyboardtrainer.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
+
     public User getSelfInformation() {
         return SecurityConfiguration.getOwnSecurityInformation();
     }
@@ -43,7 +46,7 @@ public class UserServiceImpl implements UserService {
         }
         systemUser.setPhoneNumber(updateDTO.getPhoneNumber());
         if (updateDTO.getPasswords() != null) {
-            systemUser.setPasswords(updateDTO.getPasswords());
+            systemUser.setPasswords(passwordEncoder.encode(updateDTO.getPasswords()));
         }
         userRepository.save(systemUser);
         return ResponseEntity.ok(ApiResponse.builder().message("Updated").status(200).build());

@@ -32,8 +32,7 @@ public class DataLoaderConfig implements CommandLineRunner {
     public void run(String... args) throws Exception {
         if (Objects.equals(sqlInitMode, "always")) {
             userRepository.save(User.builder().name("ADMIN").surname("ADMINOV").region(Region.Sirdaryo).status(true).passwords(passwordEncoder.encode("admin")).systemRoleName(SystemRoleName.ROLE_ADMIN).deviceIp("NO IP").phoneNumber("+998950960153").build());
-            //// test uchun
-            Contest contest = contestRepository.save(Contest.builder().title("TestContest").startAt(new Timestamp(2024 - 1900, 2, 25, 12, 20, 0, 0)).endAt(new Timestamp(2024 - 1900, 3, 1, 12, 20, 0, 0)).description("DescriptionTest").limitSecondContest(60).status(Status.BOSHLANMAGAN).build());
+            contestRepository.save(Contest.builder().title("TestContest").startAt(new Timestamp(2024 - 1900, 2, 25, 12, 20, 0, 0)).endAt(new Timestamp(2024 - 1900, 3, 1, 12, 20, 0, 0)).description("DescriptionTest").limitSecondContest(60).status(Status.BOSHLANMAGAN).build());
             for (int i = 0; i < 15; i++) {
                 newsRepository.save(News.builder().imageUrl("https://i.ytimg.com/vi/HH6lm370kH0/hqdefault.jpg?sqp=-oaymwEjCNACELwBSFryq4qpAxUIARUAAAAAGAElAADIQj0AgKJDeAE=&rs=AOn4CLAG8xLAw1tA_LGx5AbmUuUn9TquOg").link("https://youtu.be/V1PyfsaPnLo").build());
             }
