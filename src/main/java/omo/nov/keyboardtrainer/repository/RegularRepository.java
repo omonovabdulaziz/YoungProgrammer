@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 public interface RegularRepository extends JpaRepository<Regular, UUID> {
-    @Query(value = "SELECT new omo.nov.keyboardtrainer.payload.RegularDTO(r.id , r.user , r.limitSecondRegular , r.falseLetterCount , r.falseLetterCount , r.startAt , r.endAt) FROM Regular  r where r.user.id=:userId order by r.createdAt desc")
+    @Query(value = "SELECT new omo.nov.keyboardtrainer.payload.RegularDTO(r.id , r.user , r.limitSecondRegular , r.trueLetterCount , r.falseLetterCount , r.startAt , r.endAt) FROM Regular  r where r.user.id=:userId order by r.createdAt desc")
     Page<RegularDTO> selectByUser(@Param(value = "userId") Long userId , PageRequest pageRequest);
     List<Regular> findAllByLimitSecondRegularOrderByCommonTrueDesc(Integer limitSecondRegular);
 }
