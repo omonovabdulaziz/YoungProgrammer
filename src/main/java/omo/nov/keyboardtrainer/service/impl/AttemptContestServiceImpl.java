@@ -80,7 +80,7 @@ public class AttemptContestServiceImpl implements AttemptContestService {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
         Long myPlace = 1L;
         if (systemUser.getStatus()) {
-            for (AttemptRate attemptRate : attemptRateRepository.findAllByContestIdAndUser_StatusOrderByCommonTrueDesc(contestId, true)) {
+            for (AttemptRate attemptRate : attemptRateRepository.findAllByContestIdAndUser_StatusAndFalseLetterCountLessThanOrderByCommonTrueDesc(contestId, true, 13)) {
                 if (attemptRate.getUser().equals(systemUser))
                     break;
                 myPlace++;
