@@ -40,10 +40,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors(cors -> cors.configurationSource(request -> {
-            if (request.getHeader("Postman-Token") != null)
+            if (request.getHeader("Postman-Token") != null || request.getHeader("Origin") == null)
                 throw new ForbiddenException("Forbidden");
             CorsConfiguration corsConfiguration = new CorsConfiguration();
-            corsConfiguration.addAllowedOrigin("*");
+            corsConfiguration.addAllowedOrigin("https://yoshdasturchi.uz");
             corsConfiguration.addAllowedMethod("*");
             corsConfiguration.addAllowedHeader("*");
             return corsConfiguration;
