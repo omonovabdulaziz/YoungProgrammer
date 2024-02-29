@@ -2,8 +2,6 @@ package omo.nov.keyboardtrainer.config;
 
 
 import omo.nov.keyboardtrainer.entity.User;
-import omo.nov.keyboardtrainer.exception.ForbiddenException;
-import omo.nov.keyboardtrainer.exception.NotFoundException;
 import omo.nov.keyboardtrainer.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -40,20 +38,13 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
-        httpSecurity.cors(cors -> cors
-                .configurationSource(request -> {
-                    String requestedDomain = request.getHeader("Origin");
-                    if ("https://yoshdasturchi.uz".equals(requestedDomain)) {
-                        CorsConfiguration corsConfiguration = new CorsConfiguration();
-                        corsConfiguration.addAllowedOrigin("https://yoshdasturchi.uz");
-                        corsConfiguration.addAllowedMethod("*");
-                        corsConfiguration.addAllowedHeader("*");
-                        return corsConfiguration;
-                    } else {
-                        throw new ForbiddenException("NO");
-                    }
-                })
-        ).csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth ->
+        httpSecurity.cors(cors -> cors.configurationSource(request -> {
+            CorsConfiguration corsConfiguration = new CorsConfiguration();
+            corsConfiguration.addAllowedOrigin("https://yoshdasturchi.uz/");
+            corsConfiguration.addAllowedMethod("*");
+            corsConfiguration.addAllowedHeader("*");
+            return corsConfiguration;
+        })).csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth ->
                 auth
                         .requestMatchers("/api/v1/**",
                                 "/v2/api-docs",
