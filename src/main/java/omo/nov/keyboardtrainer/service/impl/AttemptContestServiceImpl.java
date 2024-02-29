@@ -36,7 +36,6 @@ public class AttemptContestServiceImpl implements AttemptContestService {
     @Override
     public ResponseEntity<ApiResponse> add(AttemptContestDTO attemptContestDTO) {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
-        if (systemUser.getStatus()) {
             Contest contest = contestRepository.findById(attemptContestDTO.getContestId()).orElseThrow(() -> new NotFoundException("Musobaqa topilmadi"));
             if (contest.getStatus() == Status.JARAYONDA) {
                 Optional<AttemptRate> optionalAttemptRate = attemptRateRepository.findByUserIdAndContestId(systemUser.getId(), attemptContestDTO.getContestId());
@@ -60,8 +59,6 @@ public class AttemptContestServiceImpl implements AttemptContestService {
             } else {
                 throw new MainException("No process or end");
             }
-        }
-        throw new ForbiddenException("User not confirmed");
     }
 
     @Override
