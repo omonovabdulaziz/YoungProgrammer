@@ -28,6 +28,7 @@ public class DataLoaderConfig implements CommandLineRunner {
     private final ContestRepository contestRepository;
     private final NewsRepository newsRepository;
 
+
     @Override
     public void run(String... args) throws Exception {
         if (Objects.equals(sqlInitMode, "always")) {

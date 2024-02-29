@@ -47,7 +47,6 @@ public class SecurityConfiguration {
         })).csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(auth ->
                 auth
                         .requestMatchers("/api/v1/**",
-                                "/api/v1/file/**",
                                 "/v2/api-docs",
                                 "/v3/api-docs",
                                 "/v3/api-docs/**",
@@ -57,10 +56,7 @@ public class SecurityConfiguration {
                                 "/configuration/security",
                                 "/swagger-ui/**",
                                 "/webjars/**",
-                                "/swagger-ui.html",
-                                "/api/v1/attemptContest/rate/notUser/**",
-                                "/api/v1/regular/getRateNotUser",
-                                "/api/v1/contest/getLastContest"
+                                "/swagger-ui.html"
                         ).permitAll()
                         .anyRequest()
                         .authenticated());

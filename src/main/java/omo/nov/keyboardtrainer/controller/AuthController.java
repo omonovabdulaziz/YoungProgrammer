@@ -28,4 +28,5 @@ public class AuthController {
     public ResponseEntity<ApiResponse> login(@RequestBody LoginDTO loginDTO) {
         return authService.login(loginDTO);
     }
+
 }
