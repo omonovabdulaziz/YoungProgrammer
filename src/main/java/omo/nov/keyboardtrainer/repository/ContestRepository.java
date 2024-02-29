@@ -22,6 +22,6 @@ public interface ContestRepository extends JpaRepository<Contest, Long> {
     PageContestDTO findByCustom(@Param(value = "id") Long id);
 
     //OZGARADI
-    @Query("SELECT  new omo.nov.keyboardtrainer.payload.PageContestDTO(c.id ,c.title , c.description , c.startAt ,c.endAt , c.limitSecondContest , c.status) FROM  Contest c order by c.createdAt limit 1")
+    @Query("SELECT  new omo.nov.keyboardtrainer.payload.PageContestDTO(c.id ,c.title , c.description , c.startAt ,c.endAt , c.limitSecondContest , c.status) FROM  Contest c order by c.createdAt desc limit 1")
     PageContestDTO getLastContest();
 }
