@@ -9,6 +9,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/seenTouch")
 @RequiredArgsConstructor
@@ -16,7 +18,7 @@ public class TouchNewsController {
     private final TouchService touchService;
 
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> add(@RequestParam SeenTouch seenTouch, @RequestParam String deviceIp, Long newsId) {
+    public ResponseEntity<ApiResponse> add(@RequestParam SeenTouch seenTouch, @RequestParam String deviceIp, List<Long> newsId) {
         return touchService.add(seenTouch, deviceIp, newsId);
     }
 

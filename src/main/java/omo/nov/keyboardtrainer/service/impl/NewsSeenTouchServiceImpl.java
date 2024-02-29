@@ -14,6 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 
 @Service
 @RequiredArgsConstructor
@@ -22,13 +24,16 @@ public class NewsSeenTouchServiceImpl implements TouchService {
     private final NewsRepository newsRepository;
 
     @Override
-    public ResponseEntity<ApiResponse> add(SeenTouch seenTouch, String deviceIp, Long newsId) {
-        News news = newsRepository.findById(newsId).orElseThrow(() -> new NotFoundException("NewsTopilmadi"));
-        if (!touchRepository.existsByNewsAndDeviceIpAndSeenTouch(news, deviceIp, seenTouch)) {
-            touchRepository.save(NewsSeenTouch.builder().news(news).deviceIp(deviceIp).seenTouch(seenTouch).build());
+    public ResponseEntity<ApiResponse> add(SeenTouch seenTouch, String deviceIp, List<Long> newsId) {
+        for (Long l : newsId) {
+            News news = newsRepository.findById(l).orElse(null);
+            if (news != null && !touchRepository.existsByNewsAndDeviceIpAndSeenTouch(news, deviceIp, seenTouch)) {
+                touchRepository.save(NewsSeenTouch.builder().news(news).deviceIp(deviceIp).seenTouch(seenTouch).build());
+            }
         }
         return ResponseEntity.ok(ApiResponse.builder().message("Ok").status(200).build());
     }
+
 
     @Override
     public Page<NewsSeenTouch> get(int page, int size) {

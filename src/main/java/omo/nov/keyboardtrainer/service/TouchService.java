@@ -6,8 +6,10 @@ import omo.nov.keyboardtrainer.payload.ApiResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 
+import java.util.List;
+
 public interface TouchService {
-    ResponseEntity<ApiResponse> add(SeenTouch seenTouch, String deviceIp, Long newsId);
+    ResponseEntity<ApiResponse> add(SeenTouch seenTouch, String deviceIp, List<Long> newsId);
 
     Page<NewsSeenTouch> get(int page, int size);
 
