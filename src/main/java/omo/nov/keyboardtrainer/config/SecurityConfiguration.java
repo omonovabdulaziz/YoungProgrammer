@@ -2,6 +2,7 @@ package omo.nov.keyboardtrainer.config;
 
 
 import omo.nov.keyboardtrainer.entity.User;
+import omo.nov.keyboardtrainer.exception.ForbiddenException;
 import omo.nov.keyboardtrainer.jwt.JwtFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -39,8 +40,10 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.cors(cors -> cors.configurationSource(request -> {
+            if (request.getHeader("Postman-Token") != null)
+                throw new ForbiddenException("Forbidden");
             CorsConfiguration corsConfiguration = new CorsConfiguration();
-            corsConfiguration.addAllowedOrigin("https://yoshdasturchi.uz/");
+            corsConfiguration.addAllowedOrigin("*");
             corsConfiguration.addAllowedMethod("*");
             corsConfiguration.addAllowedHeader("*");
             return corsConfiguration;
