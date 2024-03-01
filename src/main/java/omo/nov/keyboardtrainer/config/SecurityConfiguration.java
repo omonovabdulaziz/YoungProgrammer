@@ -43,9 +43,6 @@ public class SecurityConfiguration {
                     if (request.getHeader("Postman-Token") != null) {
                         throw new ForbiddenException("Forbiddden");
                     }
-                    if (!request.getHeader("Server").equals("webname") || request.getHeader("Server").isEmpty()) {
-                        throw new ForbiddenException("Forbidden");
-                    }
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
                     corsConfiguration.addAllowedOrigin("https://yoshdasturchi.uz");
                     corsConfiguration.addAllowedMethod("*");
