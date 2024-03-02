@@ -6,6 +6,7 @@ C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\payl
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\entity\News.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\service\AuthService.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\controller\FileController.java
+C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\payload\NewRegularDTO.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\config\SecurityConfiguration.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\payload\AttemptContestId.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\repository\AttemptRateRepository.java
@@ -14,6 +15,7 @@ C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\exce
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\controller\NewsController.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\config\RateLimitFilter.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\service\TouchService.java
+C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\util\Encrypter.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\payload\RegularDTO.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\service\BanUserService.java
 C:\Users\user\IdeaProjects\youngCoder\src\main\java\omo\nov\keyboardtrainer\service\impl\ContestServiceImpl.java

@@ -17,8 +17,8 @@ import java.sql.Timestamp;
 @Builder
 public class AttemptContestDTO {
     private Long contestId;
-    private Integer trueLetterCount;
-    private Integer falseLetterCount;
+    private String trueLetterCount;
+    private String falseLetterCount;
     @JsonDeserialize(using = TimestampDeserializer.class)
     private Timestamp startAt;
     @JsonDeserialize(using = TimestampDeserializer.class)

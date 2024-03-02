@@ -5,13 +5,16 @@ import omo.nov.keyboardtrainer.config.SecurityConfiguration;
 import omo.nov.keyboardtrainer.entity.Regular;
 import omo.nov.keyboardtrainer.entity.RegularRate;
 import omo.nov.keyboardtrainer.entity.User;
+import omo.nov.keyboardtrainer.exception.ForbiddenException;
 import omo.nov.keyboardtrainer.exception.NotFoundException;
 import omo.nov.keyboardtrainer.payload.ApiResponse;
+import omo.nov.keyboardtrainer.payload.NewRegularDTO;
 import omo.nov.keyboardtrainer.payload.RegularCommon;
 import omo.nov.keyboardtrainer.payload.RegularDTO;
 import omo.nov.keyboardtrainer.repository.RegularRateRepository;
 import omo.nov.keyboardtrainer.repository.RegularRepository;
 import omo.nov.keyboardtrainer.service.RegularService;
+import omo.nov.keyboardtrainer.util.Encrypter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -27,25 +30,30 @@ public class RegularServiceImpl implements RegularService {
     private final RegularRateRepository regularRateRepository;
 
     @Override
-    public ResponseEntity<ApiResponse> add(RegularDTO regularDTO) {
+    public ResponseEntity<ApiResponse> add(NewRegularDTO newRegularDTO) {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
-        Optional<RegularRate> optionalRegularRate = regularRateRepository.findByUserIdAndLimitSecondRegulate(systemUser.getId(), regularDTO.getLimitSecondRegular());
+        Optional<RegularRate> optionalRegularRate = regularRateRepository.findByUserIdAndLimitSecondRegulate(systemUser.getId(), newRegularDTO.getLimitSecondRegular());
+        Integer falseLetterCount = Encrypter.numberEncrypter(newRegularDTO.getFalseLetterCount());
+        Integer trueLetterCount = Encrypter.numberEncrypter(newRegularDTO.getTrueLetterCount());
+        if (falseLetterCount == null || trueLetterCount == null)
+            throw new ForbiddenException("Forbidden");
+
         if (optionalRegularRate.isEmpty()) {
-            regularRateRepository.save(RegularRate.builder().user(systemUser).startAt(regularDTO.getStartAt()).endAt(regularDTO.getEndAt()).limitSecondRegulate(regularDTO.getLimitSecondRegular()).falseLetterCount(regularDTO.getFalseLetterCount()).trueLetterCount(regularDTO.getTrueLetterCount()).commonTrue(regularDTO.getTrueLetterCount() - regularDTO.getFalseLetterCount()).build());
+            regularRateRepository.save(RegularRate.builder().user(systemUser).startAt(newRegularDTO.getStartAt()).endAt(newRegularDTO.getEndAt()).limitSecondRegulate(newRegularDTO.getLimitSecondRegular()).falseLetterCount(falseLetterCount).trueLetterCount(trueLetterCount).commonTrue(trueLetterCount - falseLetterCount).build());
         } else {
             RegularRate regularRate = optionalRegularRate.get();
             int i = regularRate.getTrueLetterCount() - regularRate.getFalseLetterCount();
-            int i1 = regularDTO.getTrueLetterCount() - regularDTO.getFalseLetterCount();
+            int i1 = trueLetterCount - falseLetterCount;
             if (i1 > i) {
-                regularRate.setTrueLetterCount(regularDTO.getTrueLetterCount());
-                regularRate.setFalseLetterCount(regularDTO.getFalseLetterCount());
+                regularRate.setTrueLetterCount(trueLetterCount);
+                regularRate.setFalseLetterCount(falseLetterCount);
                 regularRate.setCommonTrue(i1);
-                regularRate.setStartAt(regularDTO.getStartAt());
-                regularRate.setEndAt(regularDTO.getEndAt());
+                regularRate.setStartAt(newRegularDTO.getStartAt());
+                regularRate.setEndAt(newRegularDTO.getEndAt());
                 regularRateRepository.save(regularRate);
             }
         }
-        regularRepository.save(Regular.builder().startAt(regularDTO.getStartAt()).endAt(regularDTO.getEndAt()).commonTrue(regularDTO.getTrueLetterCount() - regularDTO.getFalseLetterCount()).falseLetterCount(regularDTO.getFalseLetterCount()).trueLetterCount(regularDTO.getTrueLetterCount()).limitSecondRegular(regularDTO.getLimitSecondRegular()).user(systemUser).build());
+        regularRepository.save(Regular.builder().startAt(newRegularDTO.getStartAt()).endAt(newRegularDTO.getEndAt()).commonTrue(trueLetterCount - falseLetterCount).falseLetterCount(falseLetterCount).trueLetterCount(trueLetterCount).limitSecondRegular(newRegularDTO.getLimitSecondRegular()).user(systemUser).build());
         return ResponseEntity.ok(ApiResponse.builder().message("Ok").status(200).build());
     }
 
@@ -66,7 +74,7 @@ public class RegularServiceImpl implements RegularService {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
         Long myPlace = 1L;
         if (systemUser.getStatus()) {
-            for (RegularRate regularRate : regularRateRepository.findAllByLimitSecondRegulateAndUser_StatusAndFalseLetterCountLessThanOrderByCommonTrueDesc(limitSecond, true, 20)) {
+            for (RegularRate regularRate : regularRateRepository.findAllByLimitSecondRegulateAndUser_StatusAndFalseLetterCountLessThanOrderByCommonTrueDesc(limitSecond, true, 13)) {
                 if (regularRate.getUser().equals(systemUser))
                     break;
                 myPlace++;

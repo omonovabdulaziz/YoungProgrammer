@@ -22,6 +22,7 @@ omo\nov\keyboardtrainer\repository\RegularRateRepository.class
 omo\nov\keyboardtrainer\payload\RegisterDTO$RegisterDTOBuilder.class
 omo\nov\keyboardtrainer\payload\RegularDTO$RegularDTOBuilder.class
 omo\nov\keyboardtrainer\controller\BanUserController.class
+omo\nov\keyboardtrainer\payload\NewRegularDTO.class
 omo\nov\keyboardtrainer\service\impl\NewsServiceImpl.class
 omo\nov\keyboardtrainer\payload\AttemptRateCommon.class
 omo\nov\keyboardtrainer\entity\User$UserBuilder.class
@@ -41,6 +42,7 @@ omo\nov\keyboardtrainer\config\DataLoaderConfig.class
 omo\nov\keyboardtrainer\entity\enums\Region.class
 omo\nov\keyboardtrainer\entity\enums\SystemRoleName.class
 omo\nov\keyboardtrainer\payload\ContestDTO.class
+omo\nov\keyboardtrainer\util\Encrypter.class
 omo\nov\keyboardtrainer\repository\AttemptRateRepository.class
 omo\nov\keyboardtrainer\payload\AttemptContestPage.class
 omo\nov\keyboardtrainer\entity\Contest$ContestBuilder.class
@@ -79,6 +81,7 @@ omo\nov\keyboardtrainer\controller\AuthController.class
 omo\nov\keyboardtrainer\entity\NewsSeenTouch$NewsSeenTouchBuilder.class
 omo\nov\keyboardtrainer\service\impl\UserServiceImpl.class
 omo\nov\keyboardtrainer\service\impl\PrizeServiceImpl.class
+omo\nov\keyboardtrainer\payload\NewRegularDTO$NewRegularDTOBuilder.class
 omo\nov\keyboardtrainer\repository\TouchRepository.class
 omo\nov\keyboardtrainer\controller\FileController.class
 omo\nov\keyboardtrainer\jwt\JwtFilter.class

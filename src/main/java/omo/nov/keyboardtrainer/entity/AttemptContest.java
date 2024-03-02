@@ -26,5 +26,4 @@ public class AttemptContest extends AbsUUIDEntity {
     private Timestamp startAt;
     @JsonDeserialize(using = TimestampDeserializer.class)
     private Timestamp endAt;
-
 }

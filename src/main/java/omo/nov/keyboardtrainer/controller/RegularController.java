@@ -3,6 +3,7 @@ package omo.nov.keyboardtrainer.controller;
 import lombok.RequiredArgsConstructor;
 import omo.nov.keyboardtrainer.entity.Regular;
 import omo.nov.keyboardtrainer.payload.ApiResponse;
+import omo.nov.keyboardtrainer.payload.NewRegularDTO;
 import omo.nov.keyboardtrainer.payload.RegularCommon;
 import omo.nov.keyboardtrainer.payload.RegularDTO;
 import omo.nov.keyboardtrainer.service.RegularService;
@@ -19,8 +20,8 @@ public class RegularController {
     private final RegularService regularService;
 
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> add(@RequestBody RegularDTO regularDTO) {
-        return regularService.add(regularDTO);
+    public ResponseEntity<ApiResponse> add(@RequestBody NewRegularDTO newRegularDTO) {
+        return regularService.add(newRegularDTO);
     }
 
     @GetMapping("/getRegularByPage")

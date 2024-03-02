@@ -8,7 +8,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import omo.nov.keyboardtrainer.util.TimestampDeserializer;
 
+import java.sql.Time;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.UUID;
 
 @Data
@@ -20,9 +23,7 @@ public class AttemptContestPage {
     private Integer trueLetterCount;
     private Integer falseLetterCount;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
-    @JsonDeserialize(using = TimestampDeserializer.class)
     private Timestamp startAt;
-    @JsonDeserialize(using = TimestampDeserializer.class)
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private Timestamp endAt;
 }

@@ -16,6 +16,7 @@ import omo.nov.keyboardtrainer.repository.AttemptContestRepository;
 import omo.nov.keyboardtrainer.repository.AttemptRateRepository;
 import omo.nov.keyboardtrainer.repository.ContestRepository;
 import omo.nov.keyboardtrainer.service.AttemptContestService;
+import omo.nov.keyboardtrainer.util.Encrypter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -36,25 +37,28 @@ public class AttemptContestServiceImpl implements AttemptContestService {
     @Override
     public ResponseEntity<ApiResponse> add(AttemptContestDTO attemptContestDTO) {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
+        Integer trueLetterCount = Encrypter.numberEncrypter(attemptContestDTO.getTrueLetterCount());
+        Integer falseLetterCount = Encrypter.numberEncrypter(attemptContestDTO.getFalseLetterCount());
+        if (trueLetterCount == null || falseLetterCount == null) throw new ForbiddenException("Forbidden");
         Contest contest = contestRepository.findById(attemptContestDTO.getContestId()).orElseThrow(() -> new NotFoundException("Musobaqa topilmadi"));
         if (contest.getStatus() == Status.JARAYONDA) {
             Optional<AttemptRate> optionalAttemptRate = attemptRateRepository.findByUserIdAndContestId(systemUser.getId(), attemptContestDTO.getContestId());
             if (optionalAttemptRate.isEmpty()) {
-                attemptRateRepository.save(AttemptRate.builder().commonTrue(attemptContestDTO.getTrueLetterCount() - attemptContestDTO.getFalseLetterCount()).startAt(attemptContestDTO.getStartAt()).endAt(attemptContestDTO.getEndAt()).contest(contest).falseLetterCount(attemptContestDTO.getFalseLetterCount()).trueLetterCount(attemptContestDTO.getTrueLetterCount()).user(systemUser).build());
+                attemptRateRepository.save(AttemptRate.builder().commonTrue(trueLetterCount - falseLetterCount).startAt(attemptContestDTO.getStartAt()).endAt(attemptContestDTO.getEndAt()).contest(contest).falseLetterCount(falseLetterCount).trueLetterCount(trueLetterCount).user(systemUser).build());
             } else {
                 AttemptRate attemptRate = optionalAttemptRate.get();
                 int i = attemptRate.getTrueLetterCount() - attemptRate.getFalseLetterCount();
-                int i1 = attemptContestDTO.getTrueLetterCount() - attemptContestDTO.getFalseLetterCount();
+                int i1 = trueLetterCount - falseLetterCount;
                 if (i1 > i) {
-                    attemptRate.setTrueLetterCount(attemptContestDTO.getTrueLetterCount());
-                    attemptRate.setFalseLetterCount(attemptContestDTO.getFalseLetterCount());
+                    attemptRate.setTrueLetterCount(trueLetterCount);
+                    attemptRate.setFalseLetterCount(falseLetterCount);
                     attemptRate.setCommonTrue(i1);
                     attemptRate.setStartAt(attemptContestDTO.getStartAt());
                     attemptRate.setEndAt(attemptContestDTO.getEndAt());
                     attemptRateRepository.save(attemptRate);
                 }
             }
-            attemptContestRepository.save(AttemptContest.builder().startAt(attemptContestDTO.getStartAt()).endAt(attemptContestDTO.getEndAt()).contest(contest).falseLetterCount(attemptContestDTO.getFalseLetterCount()).trueLetterCount(attemptContestDTO.getTrueLetterCount()).user(systemUser).build());
+            attemptContestRepository.save(AttemptContest.builder().startAt(attemptContestDTO.getStartAt()).endAt(attemptContestDTO.getEndAt()).contest(contest).falseLetterCount(falseLetterCount).trueLetterCount(trueLetterCount).user(systemUser).build());
             return ResponseEntity.ok(ApiResponse.builder().status(200).message("Ok Saved").build());
         } else {
             throw new MainException("No process or end");
@@ -78,8 +82,7 @@ public class AttemptContestServiceImpl implements AttemptContestService {
         Long myPlace = 1L;
         if (systemUser.getStatus()) {
             for (AttemptRate attemptRate : attemptRateRepository.findAllByContestIdAndUser_StatusAndFalseLetterCountLessThanOrderByCommonTrueDesc(contestId, true, 13)) {
-                if (attemptRate.getUser().equals(systemUser))
-                    break;
+                if (attemptRate.getUser().equals(systemUser)) break;
                 myPlace++;
             }
         } else {
@@ -93,6 +96,4 @@ public class AttemptContestServiceImpl implements AttemptContestService {
         Page<AttemptRateDTO> pageAttempt = attemptRateRepository.findAllByContestIdOrderByCommonTrue(contestId, PageRequest.of(page, size));
         return AttemptRateCommon.builder().attemptRateDTOS(pageAttempt).myPlace(null).build();
     }
-
-
 }
