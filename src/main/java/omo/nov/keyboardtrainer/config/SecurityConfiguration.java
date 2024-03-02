@@ -26,8 +26,8 @@ public class SecurityConfiguration {
     private final JwtFilter jwtFilter;
     @Autowired
     private AuthenticationProvider authenticationProvider;
-    @Autowired
-    private UserRepository userRepository;
+//    @Autowired
+//    private UserRepository userRepository;
 
     @Autowired
     public SecurityConfiguration(@Lazy JwtFilter jwtFilter) {
@@ -46,9 +46,9 @@ public class SecurityConfiguration {
                         throw new ForbiddenException("Forbiddden");
                     }
                     System.out.println(request.getRemoteAddr());
-                    if (userRepository.existsByDeviceIpAndIsBannedTrue(request.getRemoteAddr())) {
-                        throw new ForbiddenException("Forbidden");
-                    }
+//                    if (userRepository.existsByDeviceIpAndIsBannedTrue(request.getRemoteAddr())) {
+//                        throw new ForbiddenException("Forbidden");
+//                    }
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
                     corsConfiguration.addAllowedOrigin("https://yoshdasturchi.uz");
                     corsConfiguration.addAllowedMethod("*");
