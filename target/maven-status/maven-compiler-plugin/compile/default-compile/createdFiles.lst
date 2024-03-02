@@ -21,6 +21,7 @@ omo\nov\keyboardtrainer\KeyboardTrainerApplication.class
 omo\nov\keyboardtrainer\repository\RegularRateRepository.class
 omo\nov\keyboardtrainer\payload\RegisterDTO$RegisterDTOBuilder.class
 omo\nov\keyboardtrainer\payload\RegularDTO$RegularDTOBuilder.class
+omo\nov\keyboardtrainer\controller\BanUserController.class
 omo\nov\keyboardtrainer\service\impl\NewsServiceImpl.class
 omo\nov\keyboardtrainer\payload\AttemptRateCommon.class
 omo\nov\keyboardtrainer\entity\User$UserBuilder.class
@@ -93,10 +94,12 @@ omo\nov\keyboardtrainer\entity\User.class
 omo\nov\keyboardtrainer\controller\NewsController.class
 omo\nov\keyboardtrainer\payload\RegisterDTO.class
 omo\nov\keyboardtrainer\payload\AttemptContestPage$AttemptContestPageBuilder.class
+omo\nov\keyboardtrainer\service\impl\BanUserServiceImpl.class
 omo\nov\keyboardtrainer\entity\AttemptRate$AttemptRateBuilder.class
 omo\nov\keyboardtrainer\exception\ExceptionsHandler.class
 omo\nov\keyboardtrainer\payload\AttemptRateCommon$AttemptRateCommonBuilder.class
 omo\nov\keyboardtrainer\entity\News.class
+omo\nov\keyboardtrainer\service\BanUserService.class
 omo\nov\keyboardtrainer\service\ContestService.class
 omo\nov\keyboardtrainer\payload\AttemptContestId$AttemptContestIdBuilder.class
 omo\nov\keyboardtrainer\payload\RegularCommon.class

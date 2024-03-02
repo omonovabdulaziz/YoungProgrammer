@@ -38,6 +38,7 @@ public class User extends AbsLongEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Region region;
     private Integer age;
+    private Boolean isBanned;
 
     @JsonIgnore
     @Override

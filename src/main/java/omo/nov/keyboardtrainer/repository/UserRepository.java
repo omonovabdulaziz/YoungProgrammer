@@ -15,5 +15,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByPhoneNumber(String phoneNumber);
 
     Page<User> findAllByStatus(Boolean status, PageRequest pageRequest);
+    Boolean existsByDeviceIpAndIsBannedTrue(String deviceIp);
 
 }

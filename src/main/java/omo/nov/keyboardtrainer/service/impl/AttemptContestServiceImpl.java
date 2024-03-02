@@ -36,29 +36,29 @@ public class AttemptContestServiceImpl implements AttemptContestService {
     @Override
     public ResponseEntity<ApiResponse> add(AttemptContestDTO attemptContestDTO) {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
-            Contest contest = contestRepository.findById(attemptContestDTO.getContestId()).orElseThrow(() -> new NotFoundException("Musobaqa topilmadi"));
-            if (contest.getStatus() == Status.JARAYONDA) {
-                Optional<AttemptRate> optionalAttemptRate = attemptRateRepository.findByUserIdAndContestId(systemUser.getId(), attemptContestDTO.getContestId());
-                if (optionalAttemptRate.isEmpty()) {
-                    attemptRateRepository.save(AttemptRate.builder().commonTrue(attemptContestDTO.getTrueLetterCount() - attemptContestDTO.getFalseLetterCount()).startAt(attemptContestDTO.getStartAt()).endAt(attemptContestDTO.getEndAt()).contest(contest).falseLetterCount(attemptContestDTO.getFalseLetterCount()).trueLetterCount(attemptContestDTO.getTrueLetterCount()).user(systemUser).build());
-                } else {
-                    AttemptRate attemptRate = optionalAttemptRate.get();
-                    int i = attemptRate.getTrueLetterCount() - attemptRate.getFalseLetterCount();
-                    int i1 = attemptContestDTO.getTrueLetterCount() - attemptContestDTO.getFalseLetterCount();
-                    if (i1 > i) {
-                        attemptRate.setTrueLetterCount(attemptContestDTO.getTrueLetterCount());
-                        attemptRate.setFalseLetterCount(attemptContestDTO.getFalseLetterCount());
-                        attemptRate.setCommonTrue(i1);
-                        attemptRate.setStartAt(attemptContestDTO.getStartAt());
-                        attemptRate.setEndAt(attemptContestDTO.getEndAt());
-                        attemptRateRepository.save(attemptRate);
-                    }
-                }
-                attemptContestRepository.save(AttemptContest.builder().startAt(attemptContestDTO.getStartAt()).endAt(attemptContestDTO.getEndAt()).contest(contest).falseLetterCount(attemptContestDTO.getFalseLetterCount()).trueLetterCount(attemptContestDTO.getTrueLetterCount()).user(systemUser).build());
-                return ResponseEntity.ok(ApiResponse.builder().status(200).message("Ok Saved").build());
+        Contest contest = contestRepository.findById(attemptContestDTO.getContestId()).orElseThrow(() -> new NotFoundException("Musobaqa topilmadi"));
+        if (contest.getStatus() == Status.JARAYONDA) {
+            Optional<AttemptRate> optionalAttemptRate = attemptRateRepository.findByUserIdAndContestId(systemUser.getId(), attemptContestDTO.getContestId());
+            if (optionalAttemptRate.isEmpty()) {
+                attemptRateRepository.save(AttemptRate.builder().commonTrue(attemptContestDTO.getTrueLetterCount() - attemptContestDTO.getFalseLetterCount()).startAt(attemptContestDTO.getStartAt()).endAt(attemptContestDTO.getEndAt()).contest(contest).falseLetterCount(attemptContestDTO.getFalseLetterCount()).trueLetterCount(attemptContestDTO.getTrueLetterCount()).user(systemUser).build());
             } else {
-                throw new MainException("No process or end");
+                AttemptRate attemptRate = optionalAttemptRate.get();
+                int i = attemptRate.getTrueLetterCount() - attemptRate.getFalseLetterCount();
+                int i1 = attemptContestDTO.getTrueLetterCount() - attemptContestDTO.getFalseLetterCount();
+                if (i1 > i) {
+                    attemptRate.setTrueLetterCount(attemptContestDTO.getTrueLetterCount());
+                    attemptRate.setFalseLetterCount(attemptContestDTO.getFalseLetterCount());
+                    attemptRate.setCommonTrue(i1);
+                    attemptRate.setStartAt(attemptContestDTO.getStartAt());
+                    attemptRate.setEndAt(attemptContestDTO.getEndAt());
+                    attemptRateRepository.save(attemptRate);
+                }
             }
+            attemptContestRepository.save(AttemptContest.builder().startAt(attemptContestDTO.getStartAt()).endAt(attemptContestDTO.getEndAt()).contest(contest).falseLetterCount(attemptContestDTO.getFalseLetterCount()).trueLetterCount(attemptContestDTO.getTrueLetterCount()).user(systemUser).build());
+            return ResponseEntity.ok(ApiResponse.builder().status(200).message("Ok Saved").build());
+        } else {
+            throw new MainException("No process or end");
+        }
     }
 
     @Override
@@ -77,7 +77,7 @@ public class AttemptContestServiceImpl implements AttemptContestService {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
         Long myPlace = 1L;
         if (systemUser.getStatus()) {
-            for (AttemptRate attemptRate : attemptRateRepository.findAllByContestIdAndUser_StatusAndFalseLetterCountLessThanOrderByCommonTrueDesc(contestId, true, 100)) {
+            for (AttemptRate attemptRate : attemptRateRepository.findAllByContestIdAndUser_StatusAndFalseLetterCountLessThanAndUser_IsBannedFalseOrderByCommonTrueDesc(contestId, true, 13)) {
                 if (attemptRate.getUser().equals(systemUser))
                     break;
                 myPlace++;

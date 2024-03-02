@@ -23,6 +23,7 @@ public class UserMapper {
                 .status(false)
                 .region(registerDTO.getRegion())
                 .age(registerDTO.getAge())
+                .isBanned(false)
                 .build();
     }
 }

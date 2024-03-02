@@ -36,6 +36,8 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByPhoneNumber(loginDTO.getPhoneNumber()).orElseThrow(() -> new ForbiddenException("Login yoki parol xato"));
         if (!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword()))
             throw new ForbiddenException("Login yoki parol xato");
+        if (user.getIsBanned())
+            throw new ForbiddenException("User Banned");
         user.setDeviceIp(loginDTO.getDeviceIp());
         userRepository.save(user);
         return ResponseEntity.ok(ApiResponse.builder().message(user.getSystemRoleName().name()).status(200).object(jwtProvider.generateToken(user)).build());
