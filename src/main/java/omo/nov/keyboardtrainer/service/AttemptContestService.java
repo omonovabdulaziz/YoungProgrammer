@@ -8,7 +8,7 @@ import java.util.UUID;
 
 
 public interface AttemptContestService {
-    ResponseEntity<ApiResponse> add(AttemptContestDTO attemptContestDTO);
+    ResponseEntity<ApiResponse> add(AttemptContestDTO attemptContestDTO) throws Exception;
 
 
     Page<AttemptContestPage> getAllAttemptByUserAndContestId(Long userId, Long contestId, int page, int size);

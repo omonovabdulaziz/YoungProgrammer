@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import java.util.UUID;
 
 public interface RegularService {
-    ResponseEntity<ApiResponse> add(NewRegularDTO regularDTO);
+    ResponseEntity<ApiResponse> add(NewRegularDTO regularDTO) throws Exception;
 
     Page<RegularDTO> getRegularPage(int page, int size);
 

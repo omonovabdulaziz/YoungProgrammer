@@ -30,11 +30,11 @@ public class RegularServiceImpl implements RegularService {
     private final RegularRateRepository regularRateRepository;
 
     @Override
-    public ResponseEntity<ApiResponse> add(NewRegularDTO newRegularDTO) {
+    public ResponseEntity<ApiResponse> add(NewRegularDTO newRegularDTO) throws Exception {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
         Optional<RegularRate> optionalRegularRate = regularRateRepository.findByUserIdAndLimitSecondRegulate(systemUser.getId(), newRegularDTO.getLimitSecondRegular());
-        Integer falseLetterCount = Encrypter.numberEncrypter(newRegularDTO.getFalseLetterCount());
-        Integer trueLetterCount = Encrypter.numberEncrypter(newRegularDTO.getTrueLetterCount());
+        Integer falseLetterCount = Encrypter.decrypt(newRegularDTO.getFalseLetterCount());
+        Integer trueLetterCount = Encrypter.decrypt(newRegularDTO.getTrueLetterCount());
         if (falseLetterCount == null || trueLetterCount == null)
             throw new ForbiddenException("Forbidden");
 

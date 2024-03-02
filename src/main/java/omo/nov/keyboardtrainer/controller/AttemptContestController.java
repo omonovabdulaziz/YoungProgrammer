@@ -17,7 +17,7 @@ public class AttemptContestController {
     private final AttemptContestService attemptContestService;
 
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> add(@RequestBody AttemptContestDTO attemptContestDTO) {
+    public ResponseEntity<ApiResponse> add(@RequestBody AttemptContestDTO attemptContestDTO) throws Exception {
         return attemptContestService.add(attemptContestDTO);
     }
 

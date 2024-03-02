@@ -35,10 +35,10 @@ public class AttemptContestServiceImpl implements AttemptContestService {
     private final AttemptContestMapper attemptContestMapper;
 
     @Override
-    public ResponseEntity<ApiResponse> add(AttemptContestDTO attemptContestDTO) {
+    public ResponseEntity<ApiResponse> add(AttemptContestDTO attemptContestDTO) throws Exception {
         User systemUser = SecurityConfiguration.getOwnSecurityInformation();
-        Integer trueLetterCount = Encrypter.numberEncrypter(attemptContestDTO.getTrueLetterCount());
-        Integer falseLetterCount = Encrypter.numberEncrypter(attemptContestDTO.getFalseLetterCount());
+        Integer trueLetterCount = Encrypter.decrypt(attemptContestDTO.getTrueLetterCount());
+        Integer falseLetterCount = Encrypter.decrypt(attemptContestDTO.getFalseLetterCount());
         if (trueLetterCount == null || falseLetterCount == null) throw new ForbiddenException("Forbidden");
         Contest contest = contestRepository.findById(attemptContestDTO.getContestId()).orElseThrow(() -> new NotFoundException("Musobaqa topilmadi"));
         if (contest.getStatus() == Status.JARAYONDA) {

@@ -20,7 +20,7 @@ public class RegularController {
     private final RegularService regularService;
 
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> add(@RequestBody NewRegularDTO newRegularDTO) {
+    public ResponseEntity<ApiResponse> add(@RequestBody NewRegularDTO newRegularDTO) throws Exception {
         return regularService.add(newRegularDTO);
     }
 
