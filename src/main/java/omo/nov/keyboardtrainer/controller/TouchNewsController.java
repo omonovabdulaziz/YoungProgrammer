@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import omo.nov.keyboardtrainer.entity.NewsSeenTouch;
 import omo.nov.keyboardtrainer.entity.enums.SeenTouch;
 import omo.nov.keyboardtrainer.payload.ApiResponse;
+import omo.nov.keyboardtrainer.payload.NewSeenTouchDTO;
 import omo.nov.keyboardtrainer.service.TouchService;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -23,8 +24,8 @@ public class TouchNewsController {
     }
 
     @GetMapping("/get")
-    public Page<NewsSeenTouch> get(@RequestParam int page, @RequestParam int size) {
-        return touchService.get(page, size);
+    public List<NewSeenTouchDTO> get() {
+        return touchService.get();
     }
 
 }

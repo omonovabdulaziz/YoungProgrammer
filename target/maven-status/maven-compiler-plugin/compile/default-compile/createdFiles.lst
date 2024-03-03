@@ -64,6 +64,7 @@ omo\nov\keyboardtrainer\service\impl\RegularServiceImpl.class
 omo\nov\keyboardtrainer\payload\ApiResponse.class
 omo\nov\keyboardtrainer\service\impl\ContestServiceImpl.class
 omo\nov\keyboardtrainer\payload\AttemptRateDTO$AttemptRateDTOBuilder.class
+omo\nov\keyboardtrainer\payload\NewSeenTouchDTO$NewSeenTouchDTOBuilder.class
 omo\nov\keyboardtrainer\controller\ContestController.class
 omo\nov\keyboardtrainer\entity\temp\AbsUUIDEntity.class
 omo\nov\keyboardtrainer\entity\PrizeContest$PrizeContestBuilder.class
@@ -74,6 +75,7 @@ omo\nov\keyboardtrainer\repository\UserRepository.class
 omo\nov\keyboardtrainer\service\impl\AuthServiceImpl.class
 omo\nov\keyboardtrainer\jwt\JwtProvider.class
 omo\nov\keyboardtrainer\config\OpenApiConfig.class
+omo\nov\keyboardtrainer\mapper\NewsSeenTouchMapper.class
 omo\nov\keyboardtrainer\util\ImageUploader.class
 omo\nov\keyboardtrainer\entity\RegularRate.class
 omo\nov\keyboardtrainer\service\RegularService.class
@@ -81,6 +83,7 @@ omo\nov\keyboardtrainer\controller\AuthController.class
 omo\nov\keyboardtrainer\entity\NewsSeenTouch$NewsSeenTouchBuilder.class
 omo\nov\keyboardtrainer\service\impl\UserServiceImpl.class
 omo\nov\keyboardtrainer\service\impl\PrizeServiceImpl.class
+omo\nov\keyboardtrainer\payload\NewSeenTouchDTO.class
 omo\nov\keyboardtrainer\payload\NewRegularDTO$NewRegularDTOBuilder.class
 omo\nov\keyboardtrainer\repository\TouchRepository.class
 omo\nov\keyboardtrainer\controller\FileController.class
