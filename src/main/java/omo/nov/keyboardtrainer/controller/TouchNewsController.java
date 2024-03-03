@@ -18,7 +18,7 @@ public class TouchNewsController {
     private final TouchService touchService;
 
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> add(@RequestParam SeenTouch seenTouch, @RequestParam String deviceIp, List<Long> newsId) {
+    public ResponseEntity<ApiResponse> add(@RequestParam SeenTouch seenTouch, @RequestParam String deviceIp, @RequestParam List<Long> newsId) {
         return touchService.add(seenTouch, deviceIp, newsId);
     }
 

@@ -50,7 +50,7 @@ public class SecurityConfiguration {
 //                        throw new ForbiddenException("Forbidden");
 //                    }
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
-                    corsConfiguration.addAllowedOrigin("https://yoshdasturchi.uz");
+                    corsConfiguration.addAllowedOrigin("*");
                     corsConfiguration.addAllowedMethod("*");
                     corsConfiguration.addAllowedHeader("*");
                     return corsConfiguration;
