@@ -1,5 +1,7 @@
 package omo.nov.keyboardtrainer.controller;
 
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.RequiredArgsConstructor;
 import omo.nov.keyboardtrainer.entity.News;
 import omo.nov.keyboardtrainer.payload.ApiResponse;
@@ -20,7 +22,10 @@ public class NewsController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/add")
-    public ResponseEntity<ApiResponse> add(@RequestParam String link, @RequestParam MultipartFile multipartFile) {
+    public ResponseEntity<ApiResponse> add(@RequestParam String link, @RequestParam("file") @io.swagger.v3.oas.annotations.parameters.RequestBody(
+            description = "File to upload", required = true, content = @Content(
+            mediaType = "multipart/form-data", schema = @Schema(type = "string", format = "binary")
+    )) MultipartFile multipartFile) {
         return newsService.add(link, multipartFile);
     }
 

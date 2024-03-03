@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface NewsRepository extends JpaRepository<News, Long> {
-    @Query(nativeQuery = true, value = "SELECT * FROM news order by createdAt DESC  LIMIT  10")
+    @Query(nativeQuery = true, value = "SELECT * FROM news order by created_at DESC  LIMIT  10")
     List<News> orderByCreated();
 }
