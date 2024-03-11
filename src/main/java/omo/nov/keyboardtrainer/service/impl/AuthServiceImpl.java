@@ -39,17 +39,16 @@ public class AuthServiceImpl implements AuthService {
     public ResponseEntity<ApiResponse> register(RegisterDTO registerDTO) {
         if (userRepository.existsByPhoneNumber(registerDTO.getPhoneNumber()))
             throw new MainException("Bunday raqamli foydalanuvchi mavjud");
-        Optional<User> optionalUser = userRepository.findByDeviceIp(registerDTO.getDeviceIp());
+        Optional<User> optionalUser = userRepository.findFirstByDeviceIpOrderByCreatedAtDesc(registerDTO.getDeviceIp());
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             LocalDateTime createdAt = user.getCreatedAt();
             LocalDateTime nowInTashkent = LocalDateTime.now(ZoneId.of("Asia/Tashkent"));
-            if (!nowInTashkent.minusHours(24).isAfter(createdAt)) {
+            System.out.println(createdAt);
+            if (!nowInTashkent.minusHours(1).isAfter(createdAt)) {
                 throw new ForbiddenException("Limit exceded wait 1 hour response from nginx.conf");
             }
         }
-
-
         User user = userRepository.save(userMapper.toEntity(registerDTO));
         return ResponseEntity.ok(ApiResponse.builder().message("User qo'shildi").status(201).object(jwtProvider.generateToken(user)).build());
     }
@@ -59,8 +58,7 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByPhoneNumber(loginDTO.getPhoneNumber()).orElseThrow(() -> new ForbiddenException("Login yoki parol xato"));
         if (!passwordEncoder.matches(loginDTO.getPassword(), user.getPassword()))
             throw new ForbiddenException("Login yoki parol xato");
-        if (user.getIsBanned())
-            throw new ForbiddenException("User Banned");
+        if (user.getIsBanned()) throw new ForbiddenException("User Banned");
         user.setDeviceIp(loginDTO.getDeviceIp());
         userRepository.save(user);
         return ResponseEntity.ok(ApiResponse.builder().message(user.getSystemRoleName().name()).status(200).object(jwtProvider.generateToken(user)).build());
