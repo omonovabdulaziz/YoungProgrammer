@@ -45,10 +45,6 @@ public class SecurityConfiguration {
                     if (request.getHeader("Postman-Token") != null) {
                         throw new ForbiddenException("Forbiddden");
                     }
-//                    System.out.println(request.getRemoteAddr());
-//                    if (userRepository.existsByDeviceIpAndIsBannedTrue(request.getRemoteAddr())) {
-//                        throw new ForbiddenException("Forbidden");
-//                    }
                     CorsConfiguration corsConfiguration = new CorsConfiguration();
                     corsConfiguration.addAllowedOrigin("*");
                     corsConfiguration.addAllowedMethod("*");

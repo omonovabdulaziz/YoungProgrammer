@@ -1,5 +1,6 @@
 package omo.nov.keyboardtrainer.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import omo.nov.keyboardtrainer.payload.ApiResponse;
@@ -7,6 +8,7 @@ import omo.nov.keyboardtrainer.payload.LoginDTO;
 import omo.nov.keyboardtrainer.payload.RegisterDTO;
 import omo.nov.keyboardtrainer.service.AuthService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,8 +22,8 @@ public class AuthController {
 
 
     @PostMapping("/register")
-    public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterDTO registerDTO) {
-        return authService.register(registerDTO);
+        public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterDTO registerDTO , HttpServletRequest request) {
+        return authService.register(registerDTO , request);
     }
 
     @PostMapping("/login")
