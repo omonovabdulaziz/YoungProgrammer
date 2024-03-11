@@ -2,7 +2,6 @@ omo\nov\keyboardtrainer\entity\AttemptRate.class
 omo\nov\keyboardtrainer\entity\AttemptContest.class
 omo\nov\keyboardtrainer\exception\ForbiddenException.class
 omo\nov\keyboardtrainer\service\PrizeService.class
-omo\nov\keyboardtrainer\config\RateLimitFilter.class
 omo\nov\keyboardtrainer\service\impl\NewsSeenTouchServiceImpl.class
 omo\nov\keyboardtrainer\service\UserService.class
 omo\nov\keyboardtrainer\payload\AttemptRateDTO.class
