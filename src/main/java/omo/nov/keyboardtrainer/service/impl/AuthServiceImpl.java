@@ -43,9 +43,9 @@ public class AuthServiceImpl implements AuthService {
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
             LocalDateTime createdAt = user.getCreatedAt();
-            ZonedDateTime nowInTashkent = ZonedDateTime.now(ZoneId.of("Asia/Tashkent"));
-            if (!nowInTashkent.minusHours(24).isAfter(ChronoZonedDateTime.from(createdAt))) {
-              throw new ForbiddenException("Limit exceded wait 1 hour response from nginx.conf");
+            LocalDateTime nowInTashkent = LocalDateTime.now(ZoneId.of("Asia/Tashkent"));
+            if (!nowInTashkent.minusHours(24).isAfter(createdAt)) {
+                throw new ForbiddenException("Limit exceded wait 1 hour response from nginx.conf");
             }
         }
 
