@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 public interface AuthService {
 
-    ResponseEntity<ApiResponse> register(RegisterDTO registerDTO , HttpServletRequest request);
+    ResponseEntity<ApiResponse> register(RegisterDTO registerDTO);
 
     ResponseEntity<ApiResponse> login(LoginDTO loginDTO);
 }

@@ -22,8 +22,8 @@ public class AuthController {
 
 
     @PostMapping("/register")
-        public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterDTO registerDTO , HttpServletRequest request) {
-        return authService.register(registerDTO , request);
+        public ResponseEntity<ApiResponse> register(@Valid @RequestBody RegisterDTO registerDTO ) {
+        return authService.register(registerDTO);
     }
 
     @PostMapping("/login")

@@ -21,6 +21,12 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.chrono.ChronoZonedDateTime;
+import java.util.Optional;
+
 @Service
 @RequiredArgsConstructor
 public class AuthServiceImpl implements AuthService {
@@ -30,11 +36,20 @@ public class AuthServiceImpl implements AuthService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public ResponseEntity<ApiResponse> register(RegisterDTO registerDTO, HttpServletRequest request) {
-        System.out.println(request.getRemoteAddr());
-        System.out.println(registerDTO.getDeviceIp());
+    public ResponseEntity<ApiResponse> register(RegisterDTO registerDTO) {
         if (userRepository.existsByPhoneNumber(registerDTO.getPhoneNumber()))
             throw new MainException("Bunday raqamli foydalanuvchi mavjud");
+        Optional<User> optionalUser = userRepository.findByDeviceIp(registerDTO.getDeviceIp());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            LocalDateTime createdAt = user.getCreatedAt();
+            ZonedDateTime nowInTashkent = ZonedDateTime.now(ZoneId.of("Asia/Tashkent"));
+            if (!nowInTashkent.minusHours(24).isAfter(ChronoZonedDateTime.from(createdAt))) {
+              throw new ForbiddenException("Limit exceded wait 1 hour response from nginx.conf");
+            }
+        }
+
+
         User user = userRepository.save(userMapper.toEntity(registerDTO));
         return ResponseEntity.ok(ApiResponse.builder().message("User qo'shildi").status(201).object(jwtProvider.generateToken(user)).build());
     }

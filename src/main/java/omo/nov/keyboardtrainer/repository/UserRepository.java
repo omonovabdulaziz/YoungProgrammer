@@ -16,5 +16,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     Page<User> findAllByStatus(Boolean status, PageRequest pageRequest);
     Boolean existsByDeviceIpAndIsBannedTrue(String deviceIp);
-
+Optional<User> findByDeviceIp(String deviceIp);
 }
