@@ -1,9 +1,5 @@
 package omo.nov.keyboardtrainer.service.impl;
 
-import com.sun.net.httpserver.HttpsServer;
-import io.micrometer.observation.Observation;
-import jakarta.servlet.ServletRequest;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import omo.nov.keyboardtrainer.entity.User;
 import omo.nov.keyboardtrainer.exception.ForbiddenException;
@@ -15,16 +11,12 @@ import omo.nov.keyboardtrainer.payload.LoginDTO;
 import omo.nov.keyboardtrainer.payload.RegisterDTO;
 import omo.nov.keyboardtrainer.repository.UserRepository;
 import omo.nov.keyboardtrainer.service.AuthService;
-import org.apache.coyote.Request;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.chrono.ChronoZonedDateTime;
 import java.util.Optional;
 
 @Service

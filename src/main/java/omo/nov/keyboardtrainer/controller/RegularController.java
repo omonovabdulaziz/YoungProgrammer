@@ -43,4 +43,9 @@ public class RegularController {
     public RegularCommon getRateNotUser(@RequestParam Integer limitSecond, @RequestParam int page, @RequestParam int size) {
         return regularService.getRateNotUser(limitSecond, page, size);
     }
+
+    @GetMapping("/getRegularByUserId/{userId}")
+    public Page<RegularDTO> getByUserId(@PathVariable Long userId, @RequestParam int page, @RequestParam int size) {
+        return regularService.getRegularByUserId(userId, page, size);
+    }
 }

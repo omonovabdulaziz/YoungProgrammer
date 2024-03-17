@@ -21,4 +21,5 @@ public interface RegularService {
 
     RegularCommon getRateNotUser(Integer limitSecond, int page, int size);
 
+    Page<RegularDTO> getRegularByUserId(Long userId, int page, int size);
 }

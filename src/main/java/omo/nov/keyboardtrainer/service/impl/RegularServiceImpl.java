@@ -91,4 +91,9 @@ public class RegularServiceImpl implements RegularService {
         return RegularCommon.builder().myPlace(null).regularDTOPage(regularDTOPage).build();
     }
 
+    @Override
+    public Page<RegularDTO> getRegularByUserId(Long userId, int page, int size) {
+        return regularRateRepository.getRegularDTOByUserIdPage(PageRequest.of(page, size), userId);
+    }
+
 }

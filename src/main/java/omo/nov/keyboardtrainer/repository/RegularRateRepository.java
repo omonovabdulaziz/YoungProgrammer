@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,5 +22,7 @@ public interface RegularRateRepository extends JpaRepository<RegularRate, UUID> 
 
     List<RegularRate> findAllByLimitSecondRegulateAndUser_StatusAndFalseLetterCountLessThanOrderByCommonTrueDesc(Integer limitSecondRegulate, Boolean user_status, Integer falseLetterCount);
 
+    @Query(value = "SELECT new omo.nov.keyboardtrainer.payload.RegularDTO(reg.id , reg.user , reg.limitSecondRegular , reg.trueLetterCount , reg.falseLetterCount , reg.startAt , reg.endAt) from Regular reg where reg.user.id=:userId order by reg.createdAt desc")
+    Page<RegularDTO> getRegularDTOByUserIdPage(PageRequest pageRequest, @Param("userId") Long userId);
 
 }
